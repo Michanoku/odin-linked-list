@@ -39,18 +39,23 @@ class LinkedList {
     return this.tail(node.nextNode);
   }
 
-  toString() {
-    // Start at the head with an empty string
-    let current = this.head;
-    let listString = '';
-    // As long as the current node points at another node, concat the value
-    while(current.nextNode !== null) {
-      listString = listString.concat(`( ${current.value} ) -> `);
-      current = current.nextNode;
-    } 
-    // Once the end is reached, concat null and log the string
-    listString = listString.concat('null');
-    console.log(listString);
+  toString(node=null, listString=null) {
+    // If no node or no string was passed, set initial values
+    if (!node) {
+      node = this.head;
+    }
+    if (!listString) {
+      listString = '';
+    }
+    // If the next node does not exist, concat the final string, log and return
+    if (node.nextNode === null) {
+      listString = listString.concat(`( ${node.value} ) -> null`);
+      console.log(listString);
+      return;
+    }
+    // Concat the string and call the function again
+    listString = listString.concat(`( ${node.value} ) -> `);
+    return this.toString(node.nextNode, listString);
   }
 }
 
