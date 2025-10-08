@@ -34,32 +34,31 @@ class LinkedList {
     return this._head;
   }
 
-  tail(node=null) {
-    // If no node was passed, set it to head, if no head, return error
+  tail() {
+    return this.#tailRec(this._head);
+  }
+
+  #tailRec(node) {
+    // If the head is null, return error.
     if (!node) {
-      if (!this._head) {
-        return "Error. List has no nodes.";
-      }
-      node = this._head;
+      return "Error. List has no nodes.";
     }
     // If the current node does not point at anything, return it
     if (node.nextNode === null) {
       return node;
     }
     // Otherwise check the next node
-    return this.tail(node.nextNode);
+    return this.#tailRec(node.nextNode);
   }
 
-  toString(node=null, listString=null) {
-    // If no node or no string was passed, set initial values
+  toString() {
+    return this.#toStringRec(this._head, '');
+  }
+
+  #toStringRec(node, listString) {
+    // If the head is null, return error.
     if (!node) {
-      if (!this._head) {
-        return "Error. List has no nodes.";
-      }
-      node = this._head;
-    }
-    if (!listString) {
-      listString = '';
+      return "Error. List has no nodes.";
     }
     // If the next node does not exist, concat the final string, and return it
     if (node.nextNode === null) {
@@ -68,36 +67,38 @@ class LinkedList {
     }
     // Concat the string and call the function again
     listString = listString.concat(`( ${node.value} ) -> `);
-    return this.toString(node.nextNode, listString);
+    return this.#toStringRec(node.nextNode, listString);
   }
 
-  size(node=null, counter=0) {
-    // If no node was passed, use the head
+  size() {
+    return this.#sizeRec(this._head, 0);
+  }
+
+  #sizeRec(node, counter) {
+    // If the head is null, return error.
     if (!node) {
-      if (!this._head) {
-        return "Error. List has no nodes.";
-      }
-      node = this._head;
+      return "Error. List has no nodes.";
     }
     // If there is no next node, return the counter (but count the node first)
     if (node.nextNode === null) {
       return counter + 1;
     }
     // Otherwise call the function with the counter updated to 1
-    return this.size(node.nextNode, counter + 1);
+    return this.#sizeRec(node.nextNode, counter + 1);
   }
 
-  at(index, node=null) {
+  at(index) {
     // Check for a valid index integer
     if (!Number.isInteger(index) || index < 0) {
       return "Error. Not a valid index. Please provide a positive integer."
     }
-    // If no node was provided, set it to the head
+    return this.#atRec(index, this._head);
+  }
+
+  #atRec(index, node) {
+    // If the head is null, return error.
     if (!node) {
-      if (!this._head) {
-        return "Error. List has no nodes.";
-      }
-      node = this._head;
+      return "Error. List has no nodes.";
     }
     // If the index is not 0 yet but there is no next node, show error
     if (index > 0 && node.nextNode === null) {
@@ -107,16 +108,17 @@ class LinkedList {
     if (index === 0) {
       return node;
     }
-    return this.at(index - 1, node.nextNode);
+    return this.#atRec(index - 1, node.nextNode);
   }
 
-  pop(node=null, previous=null) {
-    // If no node was passed, set it to head
+  pop() {
+    return this.#popRec(this._head, null)
+  }
+
+  #popRec(node, previous) {
+    // If the head is null, return error.
     if (!node) {
-      if (!this._head) {
-        return "Error. List has no nodes.";
-      }
-      node = this._head;
+      return "Error. List has no nodes.";
     }
     // If the current node does not point at anything
     if (node.nextNode === null) {
@@ -125,16 +127,17 @@ class LinkedList {
       return;
     }
     // Otherwise check the next node
-    return this.pop(node.nextNode, node);
+    return this.#popRec(node.nextNode, node);
   }
 
-  contains(value, node=null) {
-    // If no node was passed, set it to head
+  contains(value) {
+    return this.#containsRec(value, this._head);
+  }
+
+  #containsRec(value, node) {
+    // If the head is null, return error.
     if (!node) {
-      if (!this._head) {
-        return "Error. List has no nodes.";
-      }
-      node = this._head;
+      return "Error. List has no nodes.";
     }
     // If the value was found, return true
     if (node.value === value) {
@@ -144,16 +147,17 @@ class LinkedList {
     if (node.nextNode === null) {
       return false;
     }
-    return this.contains(value, node.nextNode);
+    return this.#containsRec(value, node.nextNode);
   }
 
-  find(value, node=null, index=0) {
-    // If no node was passed, set it to head
+  find(value) {
+    return this.#findRec(value, this._head, 0);
+  }
+
+  #findRec(value, node, index) {
+    // If the head is null, return error.
     if (!node) {
-      if (!this._head) {
-        return "Error. List has no nodes.";
-      }
-      node = this._head;
+      return "Error. List has no nodes.";
     }
     // If the value was found, return index
     if (node.value === value) {
@@ -163,10 +167,9 @@ class LinkedList {
     if (node.nextNode === null) {
       return null;
     }
-    return this.find(value, node.nextNode, index + 1);
+    return this.#findRec(value, node.nextNode, index + 1);
   }
 }
-
 
 class Node {
   constructor(value=null, nextNode=null) {
@@ -174,4 +177,5 @@ class Node {
     this.nextNode = nextNode;
   };
 }
+
 export { LinkedList }
