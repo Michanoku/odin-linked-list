@@ -17,7 +17,17 @@ class LinkedList {
       // The new node will be the head
       this.head = newNode;
     }
+  }
 
+  prepend(value) {
+    // Create the new node
+    const newNode = new Node(value, null);
+    // If a head exists, point the new node at the current head
+    if (this.head) {
+      newNode.nextNode = this.head;
+    } 
+    // Set the node as the head
+    this.head = newNode;
   }
 
   tail(node) {
