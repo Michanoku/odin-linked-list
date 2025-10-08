@@ -21,11 +21,11 @@ console.log(list.at(100)); // Too high
 console.log(list.at(5)); // turtle
 console.log(list.toString());
 
-list.prepend("axolotl");
+list.prepend("axolotl"); // axolotl -> dog
 
 console.log(list.toString());
 
-list.pop();
+list.pop(); // snake -> null
 
 console.log(list.toString());
 console.log(list.contains('snake')); // true
