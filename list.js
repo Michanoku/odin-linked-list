@@ -35,8 +35,11 @@ class LinkedList {
   }
 
   tail(node=null) {
-    // If no node was passed, set it to head
+    // If no node was passed, set it to head, if no head, return error
     if (!node) {
+      if (!this._head) {
+        return "Error. List has no nodes.";
+      }
       node = this._head;
     }
     // If the current node does not point at anything, return it
@@ -50,6 +53,9 @@ class LinkedList {
   toString(node=null, listString=null) {
     // If no node or no string was passed, set initial values
     if (!node) {
+      if (!this._head) {
+        return "Error. List has no nodes.";
+      }
       node = this._head;
     }
     if (!listString) {
@@ -68,6 +74,9 @@ class LinkedList {
   size(node=null, counter=0) {
     // If no node was passed, use the head
     if (!node) {
+      if (!this._head) {
+        return "Error. List has no nodes.";
+      }
       node = this._head;
     }
     // If there is no next node, return the counter (but count the node first)
@@ -82,6 +91,9 @@ class LinkedList {
     if (!Number.isInteger(index) || index < 0) {
       return "Not a valid index. Please provide a positive integer."
     }
+    if (!this._head) {
+      return "Error. List has no nodes.";
+    }
     // Start at the head and initialize i to 0
     let node = this._head;
     let i = 0;
@@ -95,6 +107,24 @@ class LinkedList {
       i++;
     }
     return node;
+  }
+
+  pop(node=null, previous=null) {
+    // If no node was passed, set it to head
+    if (!node) {
+      if (!this._head) {
+        return "Error. List has no nodes.";
+      }
+      node = this._head;
+    }
+    // If the current node does not point at anything
+    if (node.nextNode === null) {
+      // Set the previous node nextNode to null
+      previous.nextNode = null;
+      return;
+    }
+    // Otherwise check the next node
+    return this.pop(node.nextNode, node);
   }
 }
 

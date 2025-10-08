@@ -25,5 +25,9 @@ list.prepend("axolotl");
 
 console.log(list.toString());
 
+list.pop();
+
+console.log(list.toString());
+
 
 
