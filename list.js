@@ -86,27 +86,28 @@ class LinkedList {
     // Otherwise call the function with the counter updated to 1
     return this.size(node.nextNode, counter + 1);
   }
-  at(index) {
+
+  at(index, node=null) {
     // Check for a valid index integer
     if (!Number.isInteger(index) || index < 0) {
       return "Not a valid index. Please provide a positive integer."
     }
-    if (!this._head) {
-      return "Error. List has no nodes.";
+    // If no node was provided, set it to the head
+    if (!node) {
+      if (!this._head) {
+        return "Error. List has no nodes.";
+      }
+      node = this._head;
     }
-    // Start at the head and initialize i to 0
-    let node = this._head;
-    let i = 0;
-    // As long as we have not reached the index, keep going
-    while (i < index) {
-      // If we have not reached the index but the next node is null
-      if (i < index && node.nextNode === null) {
-        return "No node found. Index higher than list length.";
-      };
-      node = node.nextNode;
-      i++;
+    // If the index is not 0 yet but there is no next node, show error
+    if (index > 0 && node.nextNode === null) {
+      return "No node found. Index higher than list length.";
+    };
+    // If the index is at 0, return the node
+    if (index === 0) {
+      return node;
     }
-    return node;
+    return this.at(index - 1, node.nextNode);
   }
 
   pop(node=null, previous=null) {
@@ -127,6 +128,7 @@ class LinkedList {
     return this.pop(node.nextNode, node);
   }
 }
+
 
 class Node {
   constructor(value=null, nextNode=null) {
