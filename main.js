@@ -29,5 +29,7 @@ list.pop();
 
 console.log(list.toString());
 
-
-
+console.log(list.contains('snake')); // true
+console.log(list.contains('ice cream')); // false
+console.log(list.find('snake')); // 5
+console.log(list.find('ice cream')); // null

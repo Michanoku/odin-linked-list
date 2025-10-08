@@ -90,7 +90,7 @@ class LinkedList {
   at(index, node=null) {
     // Check for a valid index integer
     if (!Number.isInteger(index) || index < 0) {
-      return "Not a valid index. Please provide a positive integer."
+      return "Error. Not a valid index. Please provide a positive integer."
     }
     // If no node was provided, set it to the head
     if (!node) {
@@ -101,7 +101,7 @@ class LinkedList {
     }
     // If the index is not 0 yet but there is no next node, show error
     if (index > 0 && node.nextNode === null) {
-      return "No node found. Index higher than list length.";
+      return "Error. No node found. Index higher than list length.";
     };
     // If the index is at 0, return the node
     if (index === 0) {
@@ -126,6 +126,44 @@ class LinkedList {
     }
     // Otherwise check the next node
     return this.pop(node.nextNode, node);
+  }
+
+  contains(value, node=null) {
+    // If no node was passed, set it to head
+    if (!node) {
+      if (!this._head) {
+        return "Error. List has no nodes.";
+      }
+      node = this._head;
+    }
+    // If the value was found, return true
+    if (node.value === value) {
+      return true;
+    }
+    // If the end of the list was reached, return false
+    if (node.nextNode === null) {
+      return false;
+    }
+    return this.contains(value, node.nextNode);
+  }
+
+  find(value, node=null, index=0) {
+    // If no node was passed, set it to head
+    if (!node) {
+      if (!this._head) {
+        return "Error. List has no nodes.";
+      }
+      node = this._head;
+    }
+    // If the value was found, return index
+    if (node.value === value) {
+      return index;
+    }
+    // If the end of the list was reached, return null
+    if (node.nextNode === null) {
+      return null;
+    }
+    return this.find(value, node.nextNode, index + 1);
   }
 }
 
