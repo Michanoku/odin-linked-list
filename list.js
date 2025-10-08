@@ -4,16 +4,15 @@ class LinkedList {
   }
   append(value) {
     const newNode = new Node(value, null);
-    const tail = this.tail();
+    const tail = this.tail(this.head);
     tail.nextNode = newNode;
   }
 
-  tail() {
-    let current = this.head;
-    while (current.nextNode != null) {
-      current = current.nextNode;
+  tail(node) {
+    if (node.nextNode === null) {
+      return node;
     }
-    return current;
+    return this.tail(node.nextNode);
   }
 }
 
