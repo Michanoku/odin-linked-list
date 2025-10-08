@@ -32,3 +32,9 @@ console.log(list.contains('snake')); // true
 console.log(list.contains('ice cream')); // false
 console.log(list.find('snake')); // 5
 console.log(list.find('ice cream')); // null
+
+list.insertAt('capybara', 3); // cat -> capybara -> parrot
+console.log(list.toString());
+
+list.removeAt(3); // cat -> parrot
+console.log(list.toString());

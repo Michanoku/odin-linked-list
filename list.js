@@ -169,6 +169,50 @@ class LinkedList {
     }
     return this.#findRec(value, node.nextNode, index + 1);
   }
+
+  insertAt(value, index) {
+    return this.#insertAtRec(value, index, this._head, null);
+  }
+
+  #insertAtRec(value, index, node, previous) {
+    // If the head is null, return error.
+    if (!node) {
+      return "Error. List has no nodes.";
+    }
+    // If the index is not 0 yet but there is no next node, show error
+    if (index > 0 && node.nextNode === null) {
+      return "Error. Index higher than list length.";
+    };
+    // If the index is at 0, add new node, and adjust all pointers
+    if (index === 0) {
+      const newNode = new Node(value, node);
+      previous.nextNode = newNode;
+      return;
+    }
+    return this.#insertAtRec(value, index - 1, node.nextNode, node);
+  }
+
+  removeAt(index) {
+    return this.#removeAtRec(index, this._head, null);
+  }
+
+  #removeAtRec(index, node, previous) {
+    // If the head is null, return error.
+    if (!node) {
+      return "Error. List has no nodes.";
+    }
+    // If the index is not 0 yet but there is no next node, show error
+    if (index > 0 && node.nextNode === null) {
+      return "Error. Index higher than list length.";
+    };
+    // If the index is at 0, add new node, and adjust all pointers
+    if (index === 0) {
+      previous.nextNode = node.nextNode;
+      node.nextNode = null;
+      return;
+    }
+    return this.#removeAtRec(index - 1, node.nextNode, node);
+  }
 }
 
 class Node {
