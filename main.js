@@ -14,8 +14,16 @@ console.log(list.toString());
 console.log(list.size());
 console.log(list.head());
 console.log(list.tail());
+console.log(list.at(1)); // cat node
+console.log(list.at(0)); // dog node
+console.log(list.at(-5)); // Error
+console.log(list.at('ice cream')); // Error
+console.log(list.at(100)); // Too high
+console.log(list.at(5)); // turtle
 
 list.prepend("axolotl");
 
 console.log(list.toString());
+
+
 

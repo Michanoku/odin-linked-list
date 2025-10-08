@@ -77,7 +77,25 @@ class LinkedList {
     // Otherwise call the function with the counter updated to 1
     return this.size(node.nextNode, counter + 1);
   }
-  
+  at(index) {
+    // Check for a valid index integer
+    if (!Number.isInteger(index) || index < 0) {
+      return "Not a valid index. Please provide a positive integer."
+    }
+    // Start at the head and initialize i to 0
+    let node = this._head;
+    let i = 0;
+    // As long as we have not reached the index, keep going
+    while (i < index) {
+      // If we have not reached the index but the next node is null
+      if (i < index && node.nextNode === null) {
+        return "No node found. Index higher than list length.";
+      };
+      node = node.nextNode;
+      i++;
+    }
+    return node;
+  }
 }
 
 class Node {
