@@ -47,15 +47,27 @@ class LinkedList {
     if (!listString) {
       listString = '';
     }
-    // If the next node does not exist, concat the final string, log and return
+    // If the next node does not exist, concat the final string, and return it
     if (node.nextNode === null) {
       listString = listString.concat(`( ${node.value} ) -> null`);
-      console.log(listString);
-      return;
+      return listString;
     }
     // Concat the string and call the function again
     listString = listString.concat(`( ${node.value} ) -> `);
     return this.toString(node.nextNode, listString);
+  }
+
+  size(node=null, counter=0) {
+    // If no node was passed, use the head
+    if (!node) {
+      node = this.head;
+    }
+    // If there is no next node, return the counter (but count the node first)
+    if (node.nextNode === null) {
+      return counter + 1;
+    }
+    // Otherwise call the function with the counter updated to 1
+    return this.size(node.nextNode, counter + 1);
   }
 }
 
@@ -64,6 +76,5 @@ class Node {
     this.value = value;
     this.nextNode = nextNode;
   };
-
 }
 export { LinkedList }
