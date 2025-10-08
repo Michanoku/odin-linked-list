@@ -1,3 +1,4 @@
+// The class for the linked list, that uses node class objects to make the list
 class LinkedList {
   constructor(head=null) {
     // Set the head to null at first
@@ -215,7 +216,9 @@ class LinkedList {
   }
 }
 
+// A node in the list
 class Node {
+  // A simple class, only needs its value and a pointer to the next node
   constructor(value=null, nextNode=null) {
     this.value = value;
     this.nextNode = nextNode;
